@@ -18,16 +18,11 @@ O uso de uma LLM, nesse caso, é justificável, tendo em vista que ela é capaz 
 Para rodar o projeto, é necessária a instalação das seguintes dependências:
 
 - [Python](python.org/download)
-- [Ollama](ollama.com/download)
-- [Llama 3.2 - 1B](https://ollama.com/library/llama3.2:1b)
 
 ## Desenvolvimento
 
-Para o desenvolvimento do projeto, foi constatado que uma LLM Local seria muito mais barata de ser executado no ambiente do que se comunicar com uma API de um modelo tradicional.
+No início do desenvolvimento do projeto, foi considerado o uso de uma LLM local, cuja qual seria, muito menos custosa de ser executada no ambiente do que se comunicar com uma API de um modelo tradicional. Para tal, foi utilizado o modelo Llama 3.2 de 1 bilhão de parâmetros.
 
-Para esse projeto, foi utilizado o modelo Llama 3.2 de 1 bilhão de parâmetros, pois é um modelo leve e que é capaz de fazer essa categorização de modo eficiente.
+No entanto, durante o desenvolvimento do projeto, alguns problemas foram encontrados, como reprodutibilidade em outros dispositivos, e a ineficiência devido ao fato de rodar muitos recursos do computador, tornando-o lento, além do modelo supracitado ser completamente impreciso.
 
-1. O Ambiente Virtual Python (.venv) foi criado.
-2. Foram instaladas as seguintes dependências no ambiente virtual:
-
-- Ollama SDK: `pip install ollama`
+Desse modo, após algumas pesquisar, foi constatado que a API do Google Gemini seria a ideal, pois ela disponibliza uma chave de API inclusa no seuplano gratuito, e contornaria todos os problemas encontrados ao utilizar a LLM local.
