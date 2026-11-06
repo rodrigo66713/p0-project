@@ -27,6 +27,9 @@ No entanto, durante o desenvolvimento do projeto, alguns problemas foram encontr
 
 Desse modo, após algumas pesquisar, foi constatado que a API do Google Gemini seria a ideal, pois ela disponibliza uma chave de API inclusa no seuplano gratuito, e contornaria todos os problemas encontrados ao utilizar a LLM local.
 
+"Rascunho: mudei novamente a llm do projeto, dessa vez para a llm disponiblizada pela própria softex"
+
 ### Uso de Inteligência Artificial
 
-1- Desenvolvimento do conjunto de instruções repassada à LLM;
+1. Desenvolvimento do conjunto de instruções repassada à LLM;
+2. Revisão de Erros e pequenas sugestões de melhoria;
