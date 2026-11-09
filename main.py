@@ -1,12 +1,11 @@
 import os
+import requests
 from dotenv import load_dotenv
-from ollama import Client
-from ollama import chat
 
 load_dotenv()
 
-OLLAMA_HOST = os.getenv("OLLAMA_HOST")
-client = Client()
+LLM_API_HOST = os.getenv("LLM_API_HOST")
+LLM_VERSION = os.getenv("LLM_VERSION")
 
 # Armazena o histórico de interações
 history = [{
@@ -43,18 +42,21 @@ def categorization(activities: str):
     })
 
     # Cria o chat para a categorização
-    response = chat(
-        model= "llama3.2:1b",
-        messages= history,
-        stream= False,
+    response = requests.post(
+        LLM_API_HOST,
+        json = [{
+            "model": f"{LLM_VERSION}",
+            "messages": f"{history}",
+            "stream": False
+        }],
     )
 
     # Armazena a categorização anterior no histórico
     history.append({
         "role": "assistant",
-        "content": response["message"]["content"]
+        "content": response.json()["content"]
     })
 
-    print(response["message"]["content"])
+    print(response.json()["content"])
 
 categorization("escrever relatorio")
