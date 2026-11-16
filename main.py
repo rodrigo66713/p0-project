@@ -35,6 +35,14 @@ history = [{
             """
         }]
 
+# Armazena todo o "payload" que será enviado ao servidor
+payload = [{
+    "model": LLM_VERSION,
+    "messages": [history],
+    "stream": False,
+    "options": {"temperature": 0}
+}]
+
 def categorization(activities: str):
     history.append({
         "role": "user", 
@@ -44,11 +52,9 @@ def categorization(activities: str):
     # Cria o chat para a categorização
     response = requests.post(
         LLM_API_HOST,
-        json = [{
-            "model": f"{LLM_VERSION}",
-            "messages": f"{history}",
-            "stream": False
-        }],
+        json = payload,
+        timeout = 120, 
+        verify = False
     )
 
     # Armazena a categorização anterior no histórico
