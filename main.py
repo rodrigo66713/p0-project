@@ -65,4 +65,27 @@ def categorization(activities: str):
 
     print(response.json()["content"])
 
-categorization("escrever relatorio")
+def main():
+    while True:
+        activities = """
+        Escrever um resumo do capítulo 4 de Banco de Dados sobre normalização
+        Desenvolver um programa em Python que calcule a média de notas de uma turma
+        Apresentar um seminário sobre segurança da informação para a turma
+        Responder a lista de exercícios 2 de Estatística
+        Montar um sistema de cadastro de clientes em Java no laboratório
+        Elaborar um relatório sobre a visita técnica ao data center
+        Apresentar o projeto final de Engenharia de Software com slides
+        Participar da gincana de integração da faculdade
+        Pesquisar e escrever um artigo sobre inteligência artificial na educação
+        Implementar um jogo da forca em C 
+        """
+        
+        if activities != "":
+            categorization(activities)
+        
+        else: 
+            print("Programa encerrado!")
+            return
+
+if __name__ == "__main__": 
+    main()
