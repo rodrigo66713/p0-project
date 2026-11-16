@@ -38,7 +38,7 @@ history = [{
 # Armazena todo o "payload" que será enviado ao servidor
 payload = [{
     "model": LLM_VERSION,
-    "messages": [history],
+    "messages": history,
     "stream": False,
     "options": {"temperature": 0}
 }]
@@ -50,9 +50,9 @@ def categorization(activities: str):
     })
 
     # Cria o chat para a categorização
-    response = requests.post(
+    response = requests.get(
         LLM_API_HOST,
-        json = payload,
+        params = payload,
         timeout = 120, 
         verify = False
     )
