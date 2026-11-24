@@ -1,14 +1,25 @@
 import os
-import requests
+import openai
 from dotenv import load_dotenv
+import gradio as gr
 
 load_dotenv()
 
 LLM_API_HOST = os.getenv("LLM_API_HOST")
+LLM_API_KEY = os.getenv("LLM_API_KEY")
 LLM_VERSION = os.getenv("LLM_VERSION")
 
-# Armazena o histórico de interações
-history = [{
+client = openai.OpenAI(
+    base_url = LLM_API_HOST, 
+    api_key= LLM_API_KEY,
+    http_client=openai.DefaultHttpxClient(verify=False),
+    timeout=300
+)
+
+def categorization(activities, history):
+    # Organiza o histórico implementado pelo GradIO
+    messages = [
+        {
             "role": "system",
             "content": 
             """
@@ -33,59 +44,34 @@ history = [{
                     
                 Corrija qualquer erro de sintaxe digitado na entrada.
             """
-        }]
+        },
+        *history,
+        {"role": "user", "content": activities}
+    ]
 
-# Armazena todo o "payload" que será enviado ao servidor
-payload = [{
-    "model": LLM_VERSION,
-    "messages": history,
-    "stream": False,
-    "options": {"temperature": 0}
-}]
+    # Armazena todo o "payload" que será enviado ao servidor
+    # (*) -> descompacta listas em tuplas
+    # (**) -> descompacta bibliotecas em tuplas
+    payload = {
+        "model": LLM_VERSION,
+        "messages": [*messages],
+        "stream": False,
+        "temperature": 0
+    }
 
-def categorization(activities: str):
-    history.append({
-        "role": "user", 
-        "content": activities
-    })
+    # Envia o payload para a LLM 
+    response = client.chat.completions.create(**payload)
 
-    # Cria o chat para a categorização
-    response = requests.get(
-        LLM_API_HOST,
-        params = payload,
-        timeout = 120, 
-        verify = False
-    )
+    return response.choices[0].message.content
 
-    # Armazena a categorização anterior no histórico
-    history.append({
-        "role": "assistant",
-        "content": response.json()["content"]
-    })
-
-    print(response.json()["content"])
-
-def main():
-    while True:
-        activities = """
-        Escrever um resumo do capítulo 4 de Banco de Dados sobre normalização
-        Desenvolver um programa em Python que calcule a média de notas de uma turma
-        Apresentar um seminário sobre segurança da informação para a turma
-        Responder a lista de exercícios 2 de Estatística
-        Montar um sistema de cadastro de clientes em Java no laboratório
-        Elaborar um relatório sobre a visita técnica ao data center
-        Apresentar o projeto final de Engenharia de Software com slides
-        Participar da gincana de integração da faculdade
-        Pesquisar e escrever um artigo sobre inteligência artificial na educação
-        Implementar um jogo da forca em C 
-        """
-        
-        if activities != "":
-            categorization(activities)
-        
-        else: 
-            print("Programa encerrado!")
-            return
-
-if __name__ == "__main__": 
-    main()
+# Interface básica do Gradio
+gr.ChatInterface(
+    fn=categorization,
+    title="Categorização automática de atividades",
+    chatbot=gr.Chatbot(show_label="Insira aqui a lista de atividades a serem categorizadas", buttons=[]),
+).launch(
+    server_name="0.0.0.0",
+    server_port=8080,
+    theme=gr.themes.Soft(),
+    footer_links=[],
+)
