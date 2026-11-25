@@ -60,8 +60,6 @@ Após esses passos, a ferramenta estará disponível para a utilização.
 
 ## Relatório de Desenvolvimento do Projeto
 
-## Relatório de Desenvolvimento do Projeto
-
 Durante as etapas iniciais de desenvolvimento, considerei a utilização de uma LLM executada localmente, com o objetivo de reduzir os custos de operação da aplicação. Para isso, utilizei o modelo **Llama 3.2 1B**, por meio do Ollama.
 
 Entretanto, durante os testes, identifiquei algumas limitações importantes nessa abordagem. O modelo apresentava baixa precisão nas respostas, além de consumir uma quantidade considerável de recursos computacionais, tornando sua execução pouco eficiente e comprometendo o desempenho do dispositivo. Dessa forma, concluí que a utilização de uma LLM local não seria adequada para os objetivos do projeto.
@@ -84,5 +82,9 @@ Apesar dessas limitações, defini a utilização da infraestrutura instituciona
 
 ### Uso de Inteligência Artificial
 
-1. Desenvolvimento do conjunto de instruções repassada à LLM;
-2. Revisão de Erros e pequenas sugestões de melhoria;
+Durante o desenvolvimento do projeto, utilizei ferramentas de inteligência artificial como apoio nas seguintes atividades:
+
+1. **Engenharia de Prompt:** elaboração, estruturação e aprimoramento do conjunto de instruções (*prompt*) utilizado para orientar as respostas da LLM.
+2. **Revisão de código:** identificação de possíveis erros, análise de trechos de código e sugestões pontuais de melhoria.
+3. **Documentação:** revisão textual, correção gramatical e aprimoramento da clareza e organização da documentação do projeto.
+4. **Apoio ao aprendizado:** esclarecimento de dúvidas técnicas e compreensão do funcionamento de bibliotecas, ferramentas e tecnologias utilizadas no projeto.
