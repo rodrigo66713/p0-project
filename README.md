@@ -15,9 +15,48 @@ O uso de uma LLM, nesse caso, é justificável, tendo em vista que ela é capaz 
 
 ## Instalação
 
-Para rodar o projeto, é necessária a instalação das seguintes dependências:
+### Pré-requisitos
 
-- [Python](python.org/download)
+Para fazer a instalação da ferramenta, é necessário estar instalado o Docker e o Git Bash
+
+- Siga as instruções para a instalação do [Docker](https://www.docker.com/products/docker-desktop/).
+- Siga as instruções para a instalação do [Git Bash](https://git-scm.com/install/).
+
+### Configuração
+
+**1.** Clone o repositório no seu dispositivo
+
+``` bash
+git clone https://github.com/rodrigo66713/p0-project.git
+```
+
+**2.** Acesse a pasta do repositório
+
+``` bash
+cd p0-project
+```
+
+**3.** Configure as variáveis de ambiente:
+
+Na pasta do projeto, crie um arquivo ``.env``, tomando como referência o ``.env.example``. Configure as credenciais necessárias para a inicialização do projeto.
+
+### Execução
+
+**1.** Construa a imagem Docker:
+
+Com o Docker Desktop em execução, execute os seguinte comando.
+
+``` cmd
+docker build -t categorizacao 
+```
+
+**2.** Inicialize o container:
+
+``` cmd
+docker run --env-file .env categorizacao 
+```
+
+Após esses passos, a ferramenta estará disponível para a utilização.
 
 ## Relatório de Desenvolvimento do Projeto
 
