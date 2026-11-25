@@ -60,13 +60,27 @@ Após esses passos, a ferramenta estará disponível para a utilização.
 
 ## Relatório de Desenvolvimento do Projeto
 
-No início do desenvolvimento do projeto, foi considerado o uso de uma LLM local, cuja qual seria, muito menos custosa de ser executada no ambiente do que se comunicar com uma API de um modelo tradicional. Para tal, foi utilizado o modelo Llama 3.2 de 1 bilhão de parâmetros.
+## Relatório de Desenvolvimento do Projeto
 
-No entanto, durante o desenvolvimento do projeto, alguns problemas foram encontrados, como reprodutibilidade em outros dispositivos, e a ineficiência devido ao fato de rodar muitos recursos do computador, tornando-o lento, além do modelo supracitado ser completamente impreciso.
+Durante as etapas iniciais de desenvolvimento, considerei a utilização de uma LLM executada localmente, com o objetivo de reduzir os custos de operação da aplicação. Para isso, utilizei o modelo **Llama 3.2 1B**, por meio do Ollama.
 
-Desse modo, após algumas pesquisar, foi constatado que a API do Google Gemini seria a ideal, pois ela disponibliza uma chave de API inclusa no seuplano gratuito, e contornaria todos os problemas encontrados ao utilizar a LLM local.
+Entretanto, durante os testes, identifiquei algumas limitações importantes nessa abordagem. O modelo apresentava baixa precisão nas respostas, além de consumir uma quantidade considerável de recursos computacionais, tornando sua execução pouco eficiente e comprometendo o desempenho do dispositivo. Dessa forma, concluí que a utilização de uma LLM local não seria adequada para os objetivos do projeto.
 
-"Rascunho: mudei novamente a llm do projeto, dessa vez para a llm disponiblizada pela própria softex"
+Diante dessas dificuldades, optei pela migração para a API do **Google Gemini**. Minha escolha foi motivada principalmente pela disponibilidade de uma modalidade gratuita que, apesar de possuir limites de utilização, permitia o acesso a modelos mais precisos sem custos de operação. Além disso, sua integração apresentava menor complexidade.
+
+Essa mudança exigiu a substituição da SDK do Ollama pela SDK do Gemini, além da adaptação da estrutura de comunicação com o modelo. Como resultado, observei melhorias significativas na precisão das respostas e no tempo de processamento das requisições, além da eliminação do consumo de recursos computacionais locais associado à execução da LLM.
+
+Posteriormente, realizei uma nova migração, dessa vez para a infraestrutura disponibilizada pela própria instituição. Foi disponibilizado um servidor Ollama, acessível internamente pelo ambiente de execução da aplicação, utilizando o modelo **Qwen 3.5 9B**.
+
+A decisão foi motivada principalmente pela questão financeira, uma vez que os custos de utilização da API do Gemini seriam de minha responsabilidade, enquanto a instituição já disponibilizava uma infraestrutura própria para a execução de modelos de linguagem.
+
+Para realizar essa integração, precisei adaptar novamente a comunicação com o modelo. Inicialmente, tentei utilizar a biblioteca `requests` para realizar as requisições diretamente ao servidor, mas essa abordagem não apresentou os resultados esperados. Após identificar que o servidor disponibilizado era compatível com a API da OpenAI, optei pela utilização da SDK oficial da OpenAI. Essa escolha permitiu aproveitar sua estrutura de comunicação sem depender dos serviços ou modelos da própria OpenAI, mantendo o servidor Ollama institucional como responsável pelo processamento das requisições.
+
+A comunicação entre a aplicação e o servidor institucional é realizada por meio de um endereço interno, definido através de uma variável de ambiente e utilizado durante a inicialização do container.
+
+Em relação aos resultados, observei que o modelo institucional apresentou uma qualidade de respostas semelhante à alternativa anterior. Entretanto, identifiquei algumas limitações operacionais, principalmente a indisponibilidade ocasional do servidor e o elevado tempo de processamento, presente em todas as requisições realizadas.
+
+Apesar dessas limitações, defini a utilização da infraestrutura institucional como a solução definitiva para o projeto, principalmente por eliminar os custos de utilização de serviços externos e permitir o aproveitamento dos recursos disponibilizados pela própria instituição.
 
 ### Uso de Inteligência Artificial
 
